@@ -47,20 +47,16 @@ ssh -i "AppServer.pem" ec2-user@<IP_EC2>
 sudo dnf upgrade -y
 sudo dnf install -y httpd wget php-fpm php-mysqli php-json php php-devel
 ```
-
-![Conexión SSH a EC2 e inicio de instalación](Images/captura1.png)
-
-![Descarga de paquetes de Apache y PHP](Images/captura2.png)
-
-![Instalación completa y activación del servicio httpd](Images/captura3.png)
+![captura1.png](images/captura1.png)
+![captura2.png](images/captura2.png)
+![captura3.png](images/captura3.png)
 
 ### Verificación del servidor
 
 Una vez activo el servicio, Apache respondió correctamente desde la IP pública de la instancia y desde el dominio Duck DNS configurado.
 
-![Apache respondiendo por IP pública — "It works!"](Images/captura4.png)
-
-![Apache accesible por dominio Duck DNS (HTTP)](Images/captura5.png)
+![captura4.png](images/captura4.png)
+![captura5.png](images/captura5.png)
 
 ### Certificado autofirmado (paso previo a Let's Encrypt)
 
@@ -93,13 +89,12 @@ sudo certbot --apache
 
 Certbot detectó el dominio `kevyntds.duckdns.org` y emitió el certificado exitosamente, desplegándolo en `/etc/httpd/conf.d/kevyntds-le-ssl.conf`:
 
-![Certbot emitiendo certificado Let's Encrypt para Apache](Images/captura10.png)
-
-![Certbot confirmando HTTPS activo — renovación automática configurada](Images/captura11.png)
+![captura10.png](images/captura10.png)
+![captura11.png](images/captura11.png)
 
 Apache ahora sirve con HTTPS y el certificado es reconocido como válido por el navegador:
 
-![Apache con HTTPS válido en dominio Duck DNS (modo incógnito)](Images/captura12.png)
+![captura12.png](images/captura12.png)
 
 ---
 
@@ -122,7 +117,7 @@ spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
 
 La compilación se realizó desde IntelliJ IDEA con Maven:
 
-![IntelliJ — application.properties configurado y BUILD SUCCESS](Images/captura13.png)
+![captura13.png](images/captura13.png)
 
 ### Compilar y desplegar en EC2
 
@@ -152,10 +147,8 @@ sudo chmod 644 /home/ec2-user/keystore.p12
 
 Con el keystore instalado, Spring Boot levanta en el puerto 8443 y Spring Security protege los endpoints. El formulario de login es accesible con certificado válido:
 
-![Formulario "Please sign in" de Spring Security en HTTPS:8443](Images/captura14.png)
-
-![Spring Boot — "La conexión es segura" y certificado válido](Images/captura15.png)
-
+![captura14.png](images/captura14.png)
+![captura15.png](images/captura15.png)
 ---
 
 ## Cliente HTML + JavaScript
@@ -175,15 +168,15 @@ async function login() {
 
 El formulario HTML sirve desde Apache con campos en español (Usuario / Contraseña):
 
-![Formulario de login HTML en kevynapache.duckdns.org](Images/captura16.png)
+![captura16.png](images/captura16.png)
 
 El dominio de Apache también cuenta con certificado Let's Encrypt válido:
 
-![Apache — "La conexión es segura", certificado válido en kevynapache](Images/captura17.png)
+![captura17.png](images/captura17.png)
 
 Al ingresar las credenciales correctas, el cliente recibe la respuesta del backend y confirma el acceso:
 
-![Login exitoso — "Login exitoso" mostrado en el cliente HTML](Images/captura18.png)
+![captura18.png](images/captura18.png)
 
 ---
 
